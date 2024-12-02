@@ -14,3 +14,14 @@ class ProdutoForm(forms.ModelForm):
             'qtd_estoque': forms.NumberInput(attrs={'class': 'form-control'}),
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
+        
+class ProdutoFilterForm(forms.Form):
+    nome = forms.CharField(
+        max_length=150,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Digite o nome do produto...',
+            'class': 'form-control',
+        })
+    )

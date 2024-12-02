@@ -15,45 +15,52 @@
 </head>
 
 <body>
-
     <header class="p-4 text-bg-dark">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{% url 'index' %}" class="nav-link px-1 text-white">Home</a></li>
+            <!-- Navegação e pesquisa -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                
+                <!-- Menu de navegação -->
+                <ul class="nav col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{% url 'app:index' %}" class="nav-link px-1 text-white">Home</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                 </ul>
-
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                        aria-label="Search">
+    
+                <!-- Barra de pesquisa -->
+                <form class="d-flex me-3" method="get" action="{% url 'app:index' %}">
+                    <input 
+                        type="text" 
+                        name="nome" 
+                        placeholder="Pesquise um produto..." 
+                        class="form-control me-2">
+                    <button type="submit" class="btn btn-link text-white p-0">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </form>
-
+    
+                <!-- Controle de autenticação -->
                 {% if request.user.is_authenticated %}
                 <div class="text-end">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                        Olá, <b>{{ user.username }}</b>
+                    <span class="me-3 d-none d-lg-inline text-gray-600 small">
+                        Olá, <b>{{ request.user.username }}</b>
                     </span>
-                    <!-- Logout com ícone -->
-                    <a href="{% url 'usuarios:logout' %}" class="btn btn-link text-danger text-decoration-none">
+                    <a href="{% url 'usuarios:logout' %}" class="btn btn-outline-danger btn-sm">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
                 {% else %}
-                <div class="text-end">
-                    <a href="{% url 'usuarios:login' %}" class="btn btn-warning text-white">Login</a>
-                    <a href="{% url 'usuarios:cadastro' %}" class="btn btn-warning text-white">Sign-up</a>
+                <div class="text-end d-flex gap-2">
+                    <a href="{% url 'usuarios:login' %}" class="btn btn-outline-light btn-sm px-3">Login</a>
+                    <a href="{% url 'usuarios:cadastro' %}" class="btn btn-primary btn-sm px-3">Sign-up</a>
                 </div>
                 {% endif %}
-
-
             </div>
         </div>
     </header>
+    
 
     {% block content %}
 

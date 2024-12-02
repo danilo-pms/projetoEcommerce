@@ -1,28 +1,50 @@
-
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from app.forms import ProdutoForm
+from app.forms import ProdutoForm, ProdutoFilterForm
 from .models import *
-# Create your views here.
-
-# Paginação
 from django.core.paginator import Paginator
 
 
 # CRUD - produtos
-def index(request): 
+def index(request):
+    # Inicializa todos os produtos
     produtos = Produto.objects.all()
     
-    # Paginação
-    paginator = Paginator(produtos,3)
-    page = request.GET.get('page')
-    produtos_pag = paginator.get_page(page) 
-    context = {
-        'produtos_pag': produtos_pag
-    }
-    return render(request, 'app/index.html', context)
+    # Filtra se "nome" estiver presente nos parâmetros GET
+    nome = request.GET.get('nome', '')  # Obtém o valor da barra de pesquisa
+    if nome:
+        produtos = produtos.filter(nome__icontains=nome)
     
+    # Paginação
+    paginator = Paginator(produtos, 3)
+    page = request.GET.get('page')
+    produtos_pag = paginator.get_page(page)
+
+    context = {
+        'produtos_pag': produtos_pag,
+        'nome': nome,  # Envia o valor pesquisado para o template (opcional)
+    }
+    
+    return render(request, 'app/index.html', context)
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 # Adicionar produtos   
 def add_produto(request):
