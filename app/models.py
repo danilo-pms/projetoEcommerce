@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -25,7 +25,7 @@ class Produto(models.Model):
     
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     finalizado = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -44,7 +44,7 @@ class CartItem(models.Model):
         return f"{self.produto.nome} - {self.qtd} unidades"
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pagamento = models.CharField(max_length=200, null=True, blank=True)
     frete = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     status = models.CharField(

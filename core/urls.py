@@ -20,10 +20,13 @@ from django.conf.urls.static import static
 from . import settings 
 from app.views import index, add_produto, atualizar, deletar_produto, detalhes
 
+app_name = 'app'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # usuario
-    path('a/', include('app.urls')),
+    
+    path('usuario/',include('usuarios.urls')),
+
+    
     # loja
     path('', index, name='index'),
     path('create/', add_produto, name='add_produto'),

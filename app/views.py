@@ -6,11 +6,22 @@ from app.forms import ProdutoForm
 from .models import *
 # Create your views here.
 
+# Paginação
+from django.core.paginator import Paginator
+
+
 # CRUD - produtos
 def index(request): 
     produtos = Produto.objects.all()
     
-    return render(request, 'app/index.html', {'produtos':produtos})
+    # Paginação
+    paginator = Paginator(produtos,3)
+    page = request.GET.get('page')
+    produtos_pag = paginator.get_page(page) 
+    context = {
+        'produtos_pag': produtos_pag
+    }
+    return render(request, 'app/index.html', context)
     
  
 # Adicionar produtos   
@@ -58,40 +69,3 @@ def detalhes(request, id):
     context = {'produto': produto}
 
     return render(request, "app/details.html", context)
-
-
-
-# Sistema de autenticação
-def cadastro(request):
-    if request.method == "POST":
-        # Puxa dados do formulario
-        nome = request.POST.get("nome")
-        senha = request.POST.get("senha")
-
-        # Novo usuario usando modelo User do Django
-        user = User.objects.create_user(nome, "", senha)
-        user.save()
-
-        return redirect("index")
-    return render(request, "app/cadastro.html")
-
-
-def login(request):
-    if request.method == "POST":
-        nome = request.POST.get("nome")
-        senha = request.POST.get("senha")
-        
-        user = authenticate(request, username=nome, password=senha)
-
-        if user is not None:
-            login(request, user)
-            return redirect("index")
-        else:
-            return redirect("login")
-
-    return render(request, "app/login.html")
-
-
-def logout(request):
-    logout(request)
-    return redirect("index")
