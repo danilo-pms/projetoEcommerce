@@ -20,64 +20,85 @@
 
     <section>
         <div class="container my-5">
-            <div class="row">
+            <div class="row g-4">
                 <!-- Loop pelos produtos da página atual -->
                 {% for produto in produtos_pag %}
                 <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
-                    <div class="card w-100 my-2 shadow-2-strong">
-                        <img src="{{ produto.imagem.url }}" class="card-img-top" style="aspect-ratio: 1 / 1" />
+                    <div class="card w-100 shadow-sm border-0">
+                        <div class="card-img-top position-relative">
+                            <img src="{{ produto.imagem.url }}" class="img-fluid rounded-top" style="aspect-ratio: 1 / 1" />
+                            <div class="position-absolute top-0 start-0 p-2">
+                                <!-- Adicionar uma tag de desconto ou destaque se necessário -->
+                                {% if produto.desconto %}
+                                <span class="badge bg-danger">-{{ produto.desconto }}%</span>
+                                {% endif %}
+                            </div>
+                        </div>
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ produto.nome }}</h5>
-                            <p class="card-text">R$ {{ produto.preco }}</p>
-                            <div
-                                class="card-footer d-flex justify-content-between align-items-center pt-3 px-0 pb-0 mt-auto">
-                                <!-- Ícone de "Comprar" -->
-                                <a href="#" class="btn btn-success btn-sm me-1" data-bs-toggle="tooltip"
-                                    title="Comprar">
-                                    <i class="fa fa-shopping-bag"></i>
-                                </a>
-
-                                <!-- Ícone de "Ver Detalhes" com lupa -->
-                                <a href="#" class="btn btn-outline-primary btn-sm me-1">
-                                    <i class="fa fa-search"></i>
-                                </a>
-
-                                <!-- Ícone de "Adicionar ao Carrinho" -->
-                                <a href="#" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
+                            <h5 class="card-title text-truncate" title="{{ produto.nome }}">{{ produto.nome }}</h5>
+                            <p class="card-text fw-bold text-success">R$ {{ produto.preco }}</p>
+                            <div class="mt-auto">
+                                <!-- Botões de ação -->
+                                <div class="d-flex justify-content-between">
+                                    <a href="#" class="btn btn-success btn-sm d-flex align-items-center">
+                                        <i class="fa fa-shopping-bag me-1"></i> Comprar
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fa fa-search"></i> Detalhes
+                                    </a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 {% endfor %}
             </div>
-
+    
             <!-- Paginação -->
-            <div class="pagination mt-4">
-                <span class="step-links d-flex justify-content-center align-items-center">
-                    <!-- página anterior -->
-                    {% if produtos_pag.has_previous %}
-                    <a href="?page={{ produtos_pag.previous_page_number }}" class="btn btn-outline-secondary me-2">
-                        Anterior
-                    </a>
-                    {% endif %}
-
-                    <span class="current-page">
-                        Página {{ produtos_pag.number }} de {{ produtos_pag.paginator.num_pages }}
-                    </span>
-
-                    <!-- próxima página  -->
-                    {% if produtos_pag.has_next %}
-                    <a href="?page={{ produtos_pag.next_page_number }}" class="btn btn-outline-secondary ms-2">
-                        Próxima
-                    </a>
-                    {% endif %}
-                </span>
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <!-- Página anterior -->
+                        {% if produtos_pag.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ produtos_pag.previous_page_number }}" class="page-link" aria-label="Anterior">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;</span>
+                        </li>
+                        {% endif %}
+    
+                        <!-- Página atual e total -->
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Página {{ produtos_pag.number }} de {{ produtos_pag.paginator.num_pages }}
+                            </span>
+                        </li>
+    
+                        <!-- Próxima página -->
+                        {% if produtos_pag.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ produtos_pag.next_page_number }}" class="page-link" aria-label="Próxima">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
     </section>
+    
 </main>
 
 {% endblock %}
