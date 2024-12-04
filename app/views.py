@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from app.forms import ProdutoForm, ProdutoFilterForm
 from .models import *
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 
 # CRUD - produtos
 def index(request):
@@ -25,26 +25,6 @@ def index(request):
     }
     
     return render(request, 'app/index.html', context)
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
 # Adicionar produtos   
 def add_produto(request):
@@ -91,3 +71,4 @@ def detalhes(request, id):
     context = {'produto': produto}
 
     return render(request, "app/details.html", context)
+
