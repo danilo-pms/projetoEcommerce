@@ -24,25 +24,6 @@ class Produto(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
 
-class Cart(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    finalizado = models.BooleanField(default=False) 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return f"Carrinho de {self.user.username}"
-
-
-class CartItem(models.Model):
-    carrinho = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    qtd = models.IntegerField(default=1)
-    preco = models.DecimalField(max_digits=12, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.produto.nome} - {self.qtd} unidades"
-
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pagamento = models.CharField(max_length=200, null=True, blank=True)

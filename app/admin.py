@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Produto, Cart, CartItem, Order, OrderItem
+from .models import Categoria, Produto, Order, OrderItem
 
 # Registro de Categoria 
 @admin.register(Categoria)
@@ -16,7 +16,7 @@ class ProdutoAdmin(admin.ModelAdmin):
     list_filter = ('categoria',)
 
 
-# Registro de Cart 
+"""# Registro de Cart 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     list_display = ('user', 'finalizado', 'created_at', 'updated_at')
@@ -30,7 +30,7 @@ class CartItemAdmin(admin.ModelAdmin):
     list_display = ('carrinho', 'produto', 'qtd', 'preco')
     search_fields = ('produto__nome', 'carrinho__user__username')
     list_filter = ('carrinho__finalizado',)
-
+"""
 
 # Registro de Order 
 @admin.register(Order)
