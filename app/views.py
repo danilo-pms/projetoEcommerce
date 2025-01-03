@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 from app.forms import ProdutoForm, ProdutoFilterForm
 from .models import *
@@ -72,3 +73,20 @@ def detalhes(request, id):
 
     return render(request, "app/details.html", context)
 
+
+@login_required(login_url='usuarios:login')
+def gerencia(request):
+    if not request.user.is_staff:
+        # Se não for um administrador: code 403
+        return HttpResponseForbidden(
+            "Acesso negado. Esta página é reservada para administradores."
+        )
+        
+    produtos = Produto.objects.count()
+    categorias = Categoria.objects.count()
+    
+    context = {
+        'quantidade_produtos': produtos,
+        'quantidade_categorias': categorias
+    }
+    return render(request, "app/gerencia.html", context)
