@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Produto</title>
+    <!-- Link para o Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        
+        <h1 class="mb-4">Registrar Categoria</h1>
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <!-- Campo Nome -->
+            <div class="form-group">
+                <label for="id_nome">Nome da categoria</label>
+                {{ form.nome }}
+            </div>
+            
+            
+            <!-- Campo Descrição -->
+            <div class="form-group">
+                <label for="id_descricao">Descrição</label>
+                {{ form.descricao }}
+            </div>
+            
+            <button type="submit" class="btn btn-primary mt-3">Salvar Categoria</button>
+            <a href="{% url 'app:listar_categoria' %}" class="btn btn-secondary mt-3">Voltar para a lista de categorias</a>
+        </form>
+    </div>
+    <br>
+</body>
+</html>

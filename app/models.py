@@ -15,7 +15,7 @@ class Categoria(models.Model):
 class Produto(models.Model):
     nome = models.CharField(max_length=150, null=False, blank=False)
     marca = models.CharField(max_length=150, null=True, blank=True)
-    categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True)
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, null=True)
     descricao = models.TextField(null=True, blank=True)
     preco = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False)
     qtd_estoque = models.IntegerField(default=0)

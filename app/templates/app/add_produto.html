@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <!-- Link para o Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Registrar Produto</h1>
@@ -17,47 +19,48 @@
                 <label for="id_nome">Nome do Produto</label>
                 {{ form.nome }}
             </div>
-            
+
             <!-- Campo Marca -->
             <div class="form-group">
                 <label for="id_marca">Marca</label>
                 {{ form.marca }}
             </div>
-            
+
             <!-- Campo Categoria -->
             <div class="form-group">
                 <label for="id_categoria">Categoria</label>
                 {{ form.categoria }}
             </div>
-            
+
             <!-- Campo Descrição -->
             <div class="form-group">
                 <label for="id_descricao">Descrição</label>
                 {{ form.descricao }}
             </div>
-            
+
             <!-- Campo Preço -->
             <div class="form-group">
                 <label for="id_preco">Preço</label>
                 {{ form.preco }}
             </div>
-            
+
             <!-- Campo Quantidade em Estoque -->
             <div class="form-group">
                 <label for="id_qtd_estoque">Quantidade em Estoque</label>
                 {{ form.qtd_estoque }}
             </div>
-            
+
             <!-- Campo Imagem -->
             <div class="form-group">
                 <label for="id_imagem">Imagem do Produto</label>
                 {{ form.imagem }}
             </div>
-            
+
             <button type="submit" class="btn btn-primary mt-3">Salvar Produto</button>
-            <a href="{% url 'app:index' %}" class="btn btn-secondary mt-3">Voltar para a lista de produtos</a>
+            <a href="{% url 'app:gerencia' %}" class="btn btn-secondary mt-3">Voltar para a lista de produtos</a>
         </form>
     </div>
     <br>
 </body>
+
 </html>

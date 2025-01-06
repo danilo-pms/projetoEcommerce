@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Lista de Categorias</h1>
+        <form method="GET" action="" class="mb-4">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" name="categoria" class="form-control"
+                                placeholder="Pesquisar por categoria" value="{{ categoria }}">
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning">Filtrar</button>
+                            <a href="{% url 'app:add_categoria' %}" class="btn btn-danger">Adicionar nova categoria</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <hr>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Nome da categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias_pag %}
+            <tr>
+                <td>{{ categoria.nome }}</td>
+                <td>
+                    <a href="{% url 'app:att_categoria' categoria.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'app:deletar_categoria' categoria.id %}" class="btn btn-danger btn-sm">Remover</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!-- Paginação -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <!-- Página anterior -->
+                    {% if categorias_pag.has_previous %}
+                    <li class="page-item">
+                        <a href="?page={{ categorias_pag.previous_page_number }}" class="page-link" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {% endif %}
+
+                    <!-- Página atual e total -->
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            Página {{ categorias_pag.number }} de {{ categorias_pag.paginator.num_pages }}
+                        </span>
+                    </li>
+
+                    <!-- Próxima página -->
+                    {% if categorias_pag.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ categorias_pag.next_page_number }}" class="page-link" aria-label="Próxima">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+{% endblock %}

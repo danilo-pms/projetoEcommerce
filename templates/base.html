@@ -19,7 +19,7 @@
         <div class="container">
             <!-- Navegação e pesquisa -->
             <div class="d-flex flex-wrap align-items-center justify-content-between">
-                
+
                 <!-- Menu de navegação -->
                 <ul class="nav col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{% url 'app:index' %}" class="nav-link px-1 text-white">Home</a></li>
@@ -27,20 +27,19 @@
                     <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    {% if request.user.is_superuser %}
+                    <li><a href="{% url 'app:gerencia' %}" class="nav-link px-2 text-white" >Dashboard</a></li>
+                    {% endif %}
                 </ul>
-    
+
                 <!-- Barra de pesquisa -->
                 <form class="d-flex me-3" method="get" action="{% url 'app:index' %}">
-                    <input 
-                        type="text" 
-                        name="nome" 
-                        placeholder="Pesquise um produto..." 
-                        class="form-control me-2">
+                    <input type="text" name="nome" placeholder="Pesquise um produto..." class="form-control me-2">
                     <button type="submit" class="btn btn-link text-white p-0">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
-    
+
                 <!-- Controle de autenticação -->
                 {% if request.user.is_authenticated %}
                 <div class="text-end">
@@ -56,11 +55,14 @@
                     <a href="{% url 'usuarios:login' %}" class="btn btn-outline-light btn-sm px-3">Login</a>
                     <a href="{% url 'usuarios:cadastro' %}" class="btn btn-primary btn-sm px-3">Sign-up</a>
                 </div>
+
+
                 {% endif %}
+
             </div>
         </div>
     </header>
-    
+
 
     {% block content %}
 

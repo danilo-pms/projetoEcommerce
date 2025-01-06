@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produto
+from .models import Produto, Categoria
 
 class ProdutoForm(forms.ModelForm):
     class Meta:
@@ -15,13 +15,12 @@ class ProdutoForm(forms.ModelForm):
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
         
-class ProdutoFilterForm(forms.Form):
-    nome = forms.CharField(
-        max_length=150,
-        required=False,
-        label='',
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Digite o nome do produto...',
-            'class': 'form-control',
-        })
-    )
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['nome', 'descricao',]
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
+            
+        }

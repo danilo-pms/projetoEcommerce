@@ -12,6 +12,11 @@ urlpatterns = [
     path('excluir/<int:id>/', deletar_produto, name='deletar_produto'),  
     path('att/<int:id>/', atualizar, name='atualizar'),
     path('detalhes/<int:id>/', detalhes, name='detalhes'),
-    path("gerencia/", gerencia, name='gerencia')
+    path("gerencia/", gerencia, name='gerencia'),
+    path('gerencia/produtos/', listar_produto, name='listar_produtos'),
+    path('gerencia/categorias/', listar_categoria, name='listar_categoria'),
+    path('create/categoria/', add_categoria, name='add_categoria'),
+    path('att/categoria/<int:id>/', att_categoria, name='att_categoria'),
+    path('delete/categoria/<int:id>/', deletar_categoria, name='deletar_categoria')  
        
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

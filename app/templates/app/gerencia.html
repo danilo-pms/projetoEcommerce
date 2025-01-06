@@ -44,9 +44,9 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"> <i
                                 class="fas fa-home"></i> Dashboard </a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="/registro_produto/"> <i class="fas fa-box"></i>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'app:listar_produtos' %}"> <i class="fas fa-box"></i>
                             Registro de Produtos </a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="/registro_categoria/"> <i class="fas fa-list"></i>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'app:listar_categoria' %}"> <i class="fas fa-list"></i>
                             Registro de Categorias </a> </li>
                 </ul>
             </div>
