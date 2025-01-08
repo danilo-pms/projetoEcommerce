@@ -171,3 +171,37 @@ def gerencia(request):
         'quantidade_categorias': categorias
     }
     return render(request, "app/gerencia.html", context)
+
+from django.shortcuts import render, get_object_or_404
+from django.conf import settings
+from .models import Produto, Order, OrderItem
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
+
+from django.shortcuts import render, get_object_or_404
+from django.conf import settings
+from .models import Produto, Order, OrderItem
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def buy_product(request, produto_id):
+    produto = get_object_or_404(Produto, id=produto_id)
+    usuario = request.user
+    quantidade = int(request.GET.get('quantidade', 1))
+    preco_total = produto.preco * quantidade
+
+    # Criar um novo pedido
+    pedido = Order(user=usuario, frete=0)
+    pedido.save()
+
+    # Adicionar item ao pedido
+    order_item = OrderItem(produto=produto, order=pedido, qtd=quantidade, preco=produto.preco)
+    order_item.save()
+
+    # Calcular o preço total do pedido
+    pedido.preco_total = sum(item.qtd * item.preco for item in pedido.orderitem_set.all())
+    pedido.save()
+
+    return HttpResponse(f'Pedido realizado: Pedido #{pedido.id} para {usuario.username}')

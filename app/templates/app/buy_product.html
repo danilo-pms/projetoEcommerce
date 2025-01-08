@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comprar Produto</title>
+</head>
+<body>
+    <h1>Comprar Produto</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" min="1">
+        <input type="submit" value="Comprar">
+    </form>
+</body>
+</html>
